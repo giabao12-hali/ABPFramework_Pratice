@@ -43,11 +43,14 @@
                     </Field>
                 </Validations>
             </div>
-            <Button Color="Color.Primary"
-                    Type="@ButtonType.Submit"
-                    Clicked="UpdateEntityAsync">
-                @L["Save"]
-            </Button>
+            <div>
+                <Button Color="Color.Primary"
+                        Type="@ButtonType.Submit"
+                        PreventDefaultOnSubmit="true"
+                        Clicked="UpdateEntityAsync">
+                    @L["Save"]
+                </Button>
+            </div>
         </Form>
     </div>
 </div>

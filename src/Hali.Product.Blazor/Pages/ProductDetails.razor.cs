@@ -10,7 +10,6 @@ namespace Hali.Product.Blazor.Pages
 {
     public partial class ProductDetails
     {
-        //private ProductDto EditingEntity { get; set; } = new ProductDto();
         private ProductDto ProductDto{ get; set; } = new ProductDto();
         private List<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
 
