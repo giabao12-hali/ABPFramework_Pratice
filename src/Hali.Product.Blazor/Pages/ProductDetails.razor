@@ -6,9 +6,10 @@
 @inject IStringLocalizer<ProductResource> L
 @inject AbpBlazorMessageLocalizerHelper<ProductResource> LH
 @inject NavigationManager NavigationManager
+@inject IProductAppService ProductAppService
 @inherits AbpCrudPageBase<IProductAppService, ProductDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateProductDto>
 
-<h1>@L["ProductDetails"]</h1>
+<h1>@L["Product Details"]</h1>
 <div>
     <div>
         <Form>
@@ -17,7 +18,7 @@
                     <Validation MessageLocalizer="@LH.Localize">
                         <Field>
                             <FieldLabel>@L["Name"]</FieldLabel>
-                            <TextEdit @bind-Text="@ProductDto.Name">
+                            <TextEdit @bind-text="@ProductDto.Name">
                                 <Feedback>
                                     <ValidationError />
                                 </Feedback>
@@ -35,11 +36,11 @@
                     </Field>
                     <Field>
                         <FieldLabel>@L["PublishDate"]</FieldLabel>
-                        <DateEdit TValue="DateTime" @bind-Date="ProductDto.PublishDate" />
+                        <DateEdit TValue="DateTime" @bind-Date="@ProductDto.PublishDate" />
                     </Field>
                     <Field>
                         <FieldLabel>@L["Price"]</FieldLabel>
-                        <NumericEdit TValue="float" @bind-Value="ProductDto.Price" />
+                        <NumericEdit TValue="float" @bind-Value="@ProductDto.Price" />
                     </Field>
                 </Validations>
             </div>
@@ -47,8 +48,13 @@
                 <Button Color="Color.Primary"
                         Type="@ButtonType.Submit"
                         PreventDefaultOnSubmit="true"
-                        Clicked="UpdateEntityAsync">
+                        Clicked="() => UpdateProductAsync(ProductDto)">
                     @L["Save"]
+                </Button>
+                <Button Color="Color.Danger"
+                        PreventDefaultOnSubmit="true"
+                        Clicked="NavigateToProduct">
+                    @L["Cancel"]
                 </Button>
             </div>
         </Form>
@@ -58,4 +64,13 @@
 @code {
     [Parameter]
     public Guid Id { get; set; }
+    public string Name { get; set; }
+    public float Price { get; set; }
+
+    public DateTime PublishDate{get; set; }
+
+    private void NavigateToProduct()
+    {
+        NavigationManager.NavigateTo("/products");
+    }
 }

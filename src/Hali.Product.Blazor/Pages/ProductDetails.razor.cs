@@ -39,6 +39,33 @@ namespace Hali.Product.Blazor.Pages
             return await _productAppService.GetAsync(id);
         }
 
+        protected async Task UpdateProductAsync(ProductDto productDto)
+        {
+            CreateUpdateProductDto productUpdate = new CreateUpdateProductDto
+            {
+                Id = productDto.Id,
+                Name = productDto.Name,
+                PublishDate = productDto.PublishDate,
+                Price = productDto.Price,
+                CategoryId = productDto.CategoryId
+            };
+            await _productAppService.UpdateAsync(productDto.Id, productUpdate);
+            NavigationManager.NavigateTo("/products");
+        }
+
+        //private async Task<ProductDto> UpdateProductAsync(ProductDto productDto)
+        //{
+        //    CreateUpdateProductDto productUpdate = new CreateUpdateProductDto
+        //    {
+        //        Id = productDto.Id,
+        //        Name = productDto.Name,
+        //        PublishDate = productDto.PublishDate,
+        //        Price = productDto.Price,
+        //        CategoryId = productDto.CategoryId
+        //    };
+        //    return await _productAppService.UpdateAsync(productDto.Id, productUpdate);
+        //}
+
         //private readonly IProductAppService _productAppService;
         //private readonly ICategoryAppService _categoryAppService;
 

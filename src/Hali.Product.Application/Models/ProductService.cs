@@ -26,5 +26,25 @@ namespace Hali.Product.Models
             await CurrentUnitOfWork.SaveChangesAsync();
             return MapToGetOutputDto(product);
         }
+
+        public async Task<ProductDto> UpdateAsync(Guid Id, CreateUpdateProductDto input)
+        {
+            var existingProduct = await Repository.FindAsync(input.Id.Value);
+
+            if (existingProduct == null)
+            {
+                throw new Exception("Không tìm thấy Product");
+            }
+
+            existingProduct.Name = input.Name;
+            existingProduct.PublishDate = input.PublishDate;
+            existingProduct.Price = input.Price;
+            existingProduct.CategoryId = input.CategoryId;
+
+            await Repository.UpdateAsync(existingProduct);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToGetOutputDto(existingProduct);
+        }
     }
 }
